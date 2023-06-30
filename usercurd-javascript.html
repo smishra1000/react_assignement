@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Management</title>
+</head>
+<body>
+  <h1>User Management</h1>
+  <div id="userTable"></div>
+  <form id="userForm">
+    <input type="text" id="nameInput" placeholder="Name" />
+    <input type="email" id="emailInput" placeholder="Email" />
+    <button type="submit">Add User</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+// Sample user data
+let users = [
+  { id: 1, name: "John Doe", email: "john@example.com" },
+  { id: 2, name: "Jane Smith", email: "jane@example.com" },
+  { id: 3, name: "Bob Johnson", email: "bob@example.com" }
+];
+
+// Function to generate a unique ID
+const generateId = () => {
+  return Math.floor(Math.random() * 100000);
+};
+
+// Function to render the user table
+const renderUserTable = () => {
+  const tableContainer = document.getElementById("userTable");
+  tableContainer.innerHTML = "";
+
+  const table = document.createElement("table");
+  table.innerHTML = `
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  `;
+
+  users.forEach(user => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${user.id}</td>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>
+        <button onclick="editUser(${user.id})">Edit</button>
+        <button onclick="deleteUser(${user.id})">Delete</button>
+      </td>
+    `;
+
+    table.appendChild(row);
+  });
+
+  tableContainer.appendChild(table);
+};
+
+// Function to add a new user
+const addUser = (event) => {
+  event.preventDefault();
+
+  const nameInput = document.getElementById("nameInput");
+  const emailInput = document.getElementById("emailInput");
+
+  const newUser = {
+    id: generateId(),
+    name: nameInput.value,
+    email: emailInput.value
+  };
+
+  users.push(newUser);
+  renderUserTable();
+
+  // Reset form inputs
+  nameInput.value = "";
+  emailInput.value = "";
+};
+
+// Function to edit a user
+const editUser = (userId) => {
+  const user = users.find(u => u.id === userId);
+  if (!user) return;
+
+  const nameInput = document.getElementById("nameInput");
+  const emailInput = document.getElementById("emailInput");
+
+  nameInput.value = user.name;
+  emailInput.value = user.email;
+
+  // Remove the user from the list
+  users = users.filter(u => u.id !== userId);
+
+  renderUserTable();
+};
+
+// Function to delete a user
+const deleteUser = (userId) => {
+  users = users.filter(u => u.id !== userId);
+  renderUserTable();
+};
+
+// Render the initial user table
+renderUserTable();
+
+// Add event listener to the form submission
+const userForm = document.getElementById("userForm");
+userForm.addEventListener("submit", addUser);
+
