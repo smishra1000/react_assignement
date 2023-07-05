@@ -28,3 +28,11 @@ migrate to the new context API introduced in React 16.
 Using <React.StrictMode> is recommended during development, as it helps catch potential problems early. However, it's important to note that strict 
 mode checks are not performed in production builds, so the performance of your application won't be affected.
 To enable strict mode, wrap your root component or any component you want to check with <React.StrictMode> in your React application.
+import React from 'react';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
