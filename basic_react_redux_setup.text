@@ -1,0 +1,106 @@
+// step by setp redux setup using react redux 
+Step 1: Install Redux and React Redux
+Start by installing the required packages for Redux and React Redux using npm or yarn.
+npm install redux react-redux
+
+
+Step 2: Create a Redux Store
+Create a file called store.js to set up your Redux store. Import the necessary functions from Redux and create the store using createStore.
+
+import { createStore } from 'redux';
+import rootReducer from './reducers';
+
+const store = createStore(rootReducer);
+
+export default store;
+
+In this example, rootReducer represents the combined reducer that you'll create later.
+
+Step 3: Define Reducers
+Create a folder called reducers and add individual reducer files inside it. Each reducer represents a piece of your application's state.
+
+
+// reducers/counterReducer.js
+const initialState = {
+  count: 0
+};
+
+const counterReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { ...state, count: state.count + 1 };
+    case 'DECREMENT':
+      return { ...state, count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+export default counterReducer;
+
+
+Step 4: Combine Reducers
+In the reducers folder, create a file called index.js to combine all 
+the reducers using combineReducers from Redux.
+
+import { combineReducers } from 'redux';
+import counterReducer from './counterReducer';
+
+const rootReducer = combineReducers({
+  counter: counterReducer
+});
+
+export default rootReducer;
+
+
+Step 5: Connect Redux Store to React with Provider
+In your root component file (usually index.js or App.js), wrap your application with the Provider component from React Redux and pass in the 
+Redux store as a prop.
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+import App from './App';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
+
+Step 6: Access Redux State and Dispatch Actions with Hooks
+To access the Redux state and dispatch actions in a component, use the useSelector and useDispatch hooks provided by React Redux.
+
+
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+const Counter = () => {
+  const count = useSelector((state) => state.counter.count);
+  const dispatch = useDispatch();
+
+  const increment = () => {
+    dispatch({ type: 'INCREMENT' });
+  };
+
+  const decrement = () => {
+    dispatch({ type: 'DECREMENT' });
+  };
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;
+
+In this example, useSelector allows you to select and access the state from the Redux store. The useDispatch hook gives you access to the dispatch function, which you can use to dispatch actions to update the state.
+
+Now, you can use the Counter component and access the Redux state and dispatch actions within it.
