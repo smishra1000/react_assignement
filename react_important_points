@@ -7,3 +7,24 @@ Re-renders: If a component re-renders due to a state or prop change, the hooks w
 Strict mode: In development mode, React uses strict mode by default. Strict mode intentionally triggers an additional render to detect any unexpected side effects caused by hooks.
 It's important to note that React relies on these multiple calls to ensure that components behave predictably and consistently. The hooks are designed to handle these scenarios gracefully, and it's usually not an issue unless you're experiencing unexpected behavior or performance problems.
 If you believe that the multiple calls to a specific hook are causing a problem, make sure to check your code for any unintentional side effects or unnecessary dependencies in your hooks. You can also use the useEffect hook to control when certain actions or effects should be triggered to avoid unnecessary re-renders.
+
+
+2.  what is react strict mode  ?
+ans--
+In React, the "Strict Mode" is a development mode that helps identify potential issues in your application by enabling additional checks and warnings. 
+It is not specific to grid layout, 
+but rather a general feature of React.
+When you wrap your application or a specific component with <React.StrictMode>, React performs additional checks and validations during rendering. 
+These checks are meant to highlight potential problems or anti-patterns in your codebase. 
+The strict mode helps in identifying and addressing these issues early in the development process.
+Some of the additional checks performed in strict mode include:
+Identifying unsafe lifecycle methods: Strict mode warns you if you use deprecated or unsafe lifecycle methods. It encourages you to use the
+latest lifecycle methods and hooks instead.
+Detecting unexpected side effects: Strict mode checks for unintended side effects during component rendering, such as modifying state inside a render
+function. It helps you identify and fix such issues to ensure a more predictable rendering behavior.
+Highlighting deprecated features: Strict mode will warn you about deprecated features, providing suggestions for modern alternatives.
+Detecting potential issues with legacy context API: Strict mode alerts you about potential problems with the legacy context API, encouraging you to 
+migrate to the new context API introduced in React 16.
+Using <React.StrictMode> is recommended during development, as it helps catch potential problems early. However, it's important to note that strict 
+mode checks are not performed in production builds, so the performance of your application won't be affected.
+To enable strict mode, wrap your root component or any component you want to check with <React.StrictMode> in your React application.
