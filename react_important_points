@@ -1,0 +1,9 @@
+1. Why react hooks calling 2 times 
+ans-
+React hooks can sometimes appear to be called multiple times due to the way React handles rendering and updates. However, this behavior is usually not a problem and is actually part of React's optimization strategy.
+There are a few reasons why a hook might be called multiple times:
+Initial render: When a component is initially rendered, the hooks are called once to set up the initial state and establish any necessary subscriptions.
+Re-renders: If a component re-renders due to a state or prop change, the hooks will be called again. This allows the component to update its internal state and recompute any values derived from the props or state.
+Strict mode: In development mode, React uses strict mode by default. Strict mode intentionally triggers an additional render to detect any unexpected side effects caused by hooks.
+It's important to note that React relies on these multiple calls to ensure that components behave predictably and consistently. The hooks are designed to handle these scenarios gracefully, and it's usually not an issue unless you're experiencing unexpected behavior or performance problems.
+If you believe that the multiple calls to a specific hook are causing a problem, make sure to check your code for any unintentional side effects or unnecessary dependencies in your hooks. You can also use the useEffect hook to control when certain actions or effects should be triggered to avoid unnecessary re-renders.
