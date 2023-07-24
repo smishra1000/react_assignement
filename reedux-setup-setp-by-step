@@ -1,0 +1,76 @@
+
+1> insatll redux react-redux
+2>go to index.js file setup redux configuration
+---------------index .js -----------------
+import rootReducer from './reducers/rootReducer';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+const store = createStore(rootReducer)
+ 
+ <Provider store={store}>
+    <App />
+    </Provider>
+
+3>. create reducers folder 
+
+4>create counterReducer.js
+---------------counterReducer.js -----------------
+const initialState = {
+   count:0
+}
+
+function CounterReducer(state=initialState,action){
+   if(action.type==="increment"){
+       return {
+           count:state.count+1
+       }
+   } else if(action.type==="decrement"){
+       return {
+           count:state.count-1
+       }
+   }else if(action.type==="reset"){
+       return {
+           count:0
+       }
+   }
+   else{
+       return state;
+   }
+}
+
+export default CounterReducer
+
+5> create rootReducer.js
+---------------rootReducer.js -----------------
+import {combineReducers} from "redux";
+
+import ContactsReducer from "./contactReducer";
+import CounterReducer from "./counterReducer";
+
+const rootReducer = combineReducers({contactsData:ContactsReducer,counterData:CounterReducer})
+
+export default rootReducer
+
+
+
+6> create component Counter.js
+---------------Counter.js -----------------
+import { useState } from "react";
+import {useSelector,useDispatch} from"react-redux"
+function Counter(){
+    const state = useSelector((state)=>state.counterData)
+    const dispatch = useDispatch();
+    return(
+        <div className="container">
+            <div className="row">
+                <h3>Count is {state.count}</h3>
+                <button className="btn btn-primary" onClick={()=>dispatch({type:"increment"})}>Increment</button>
+                <button className="btn btn-danger" onClick={()=>dispatch({type:"decrement"})}>decremnet</button>
+                <button className="btn btn-success"  onClick={()=>dispatch({type:"reset"})}>Reset</button>
+            </div>
+        </div>
+    )
+}
+
+export default Counter
